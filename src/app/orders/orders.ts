@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';    
 import { Component, inject, signal } from '@angular/core';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -53,42 +53,29 @@ export class Orders {
     this.loading.set(true);
 
     forkJoin({
-      orders: this.http
-        .get<Order[]>('Assets/data/orders.json')
-        .pipe(catchError(() => of([] as Order[]))),
+      orders: this.http.get<Order[]>('Assets/data/orders.json').pipe(catchError(() => of([] as Order[]))),
 
-      books: this.http
-        .get<Book[]>('Assets/data/books.json')
-        .pipe(catchError(() => of([] as Book[]))),
+      books: this.http.get<Book[]>('Assets/data/books.json').pipe(catchError(() => of([] as Book[]))),
 
-      users: this.http
-        .get<User[]>('Assets/data/users.json')
-        .pipe(catchError(() => of([] as User[]))),
-    }).subscribe(({ orders, books, users }) => {
+      users: this.http.get<User[]>('Assets/data/users.json').pipe(catchError(() => of([] as User[]))),})
+      .subscribe(({ orders, books, users }) => {
       this.books.set(books);
       this.users.set(users);
 
       const userId = this.currentUser()?.id;
 
-      const visibleOrders = this.isAdmin()
-        ? orders.filter((order) => {
+      const visibleOrders = this.isAdmin()? 
+      orders.filter((order) => {
             const customer = users.find((user) => user.id === order.userId);
             return customer?.role !== 'admin';
-          })
-        : orders.filter((order) => order.userId === userId);
+      }): 
+      orders.filter((order) => order.userId === userId);
 
-      const ordersWithDetails = visibleOrders
-        .map((order) => ({
-          ...order,
+      const ordersWithDetails = visibleOrders.map((order) => ({...order,
           customer: users.find((user) => user.id === order.userId),
-          books: order.items
-            .map((item) => books.find((book) => book.id === item.bookId))
-            .filter((book): book is Book => !!book),
-        }))
-        .sort(
-          (a, b) =>
-            new Date(b.date).getTime() -
-            new Date(a.date).getTime(),
+          books: order.items.map((item) => books.find((book) => book.id === item.bookId)).filter((book): book is Book => !!book),
+        })).sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
         );
 
       this.orders.set(ordersWithDetails);
