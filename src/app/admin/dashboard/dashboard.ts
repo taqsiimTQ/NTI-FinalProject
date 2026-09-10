@@ -43,7 +43,7 @@ export class Dashboard implements OnInit {
   maxSales = 0;
 
   // Highest book sales
-  maxBookSales = 0;
+  
 
   constructor(
     private bookService: BookService,
@@ -208,14 +208,7 @@ export class Dashboard implements OnInit {
     // Show only the top 5
     this.topBooks = this.topBooks.slice(0, 5);
 
-    // Find highest book sales
-    this.maxBookSales = 0;
-
-    for (const book of this.topBooks) {
-      if (book.quantity > this.maxBookSales) {
-        this.maxBookSales = book.quantity;
-      }
-    }
+    
   }
 
   // Calculate bar height

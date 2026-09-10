@@ -104,16 +104,3 @@
 }
 
 
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-  .chart {
-    gap: 5px;
-  }
-
-  .bar {
-    width: 25px;
-  }
-
-}

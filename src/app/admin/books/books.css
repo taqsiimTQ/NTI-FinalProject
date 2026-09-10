@@ -178,17 +178,3 @@
 }
 
 
-/* MOBILE */
-
-@media (max-width: 750px) {
-
-  .page-header {
-    align-items: flex-start !important;
-    gap: 15px;
-  }
-
-  .page-title {
-    font-size: 24px;
-  }
-
-}

@@ -168,14 +168,3 @@
 }
 
 
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-  .page-header {
-    align-items: flex-start !important;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-}

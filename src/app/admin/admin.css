@@ -91,20 +91,3 @@
 }
 
 
-/* MOBILE */
-
-@media (max-width: 768px) {
-
-  .admin-page {
-    padding: 25px 18px;
-  }
-
-  .admin-header {
-    align-items: stretch !important;
-  }
-
-  .admin-logout {
-    width: 100%;
-  }
-
-}
