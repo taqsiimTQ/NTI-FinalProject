@@ -1,0 +1,65 @@
+<td class="item-cell">
+  <img
+    class="cover-thumb"
+    [src]="item.image"
+    [alt]="item.title"
+  />
+
+  <div class="item-meta">
+    <p class="item-title">{{ item.title }}</p>
+    <p class="item-author">{{ item.author }}</p>
+  </div>
+</td>
+
+<td class="price-cell">
+  {{ item.price | currency }}
+</td>
+
+<td class="qty-cell">
+  <div class="qty-stepper">
+    <button
+      type="button"
+      class="step-btn"
+      (click)="decrease.emit()"
+      [disabled]="item.quantity <= 1"
+      aria-label="Decrease quantity"
+    >
+      −
+    </button>
+
+    <input
+      type="number"
+      class="qty-input"
+      min="1"
+      max="99"
+      [ngModel]="item.quantity"
+      [ngModelOptions]="{ standalone: true }"
+      (ngModelChange)="onQtyInput($event)"
+    />
+
+    <button
+      type="button"
+      class="step-btn"
+      (click)="increase.emit()"
+      aria-label="Increase quantity"
+    >
+      +
+    </button>
+  </div>
+</td>
+
+<td class="total-cell">
+  {{ item.price * item.quantity | currency }}
+</td>
+
+<td class="remove-cell">
+  <button
+    type="button"
+    class="remove-btn"
+    (click)="remove.emit()"
+    [attr.aria-label]="'Remove ' + item.title"
+    title="Remove"
+  >
+    Remove
+  </button>
+</td>
