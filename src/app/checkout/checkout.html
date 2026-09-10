@@ -1,1 +1,173 @@
-<p>checkout works!</p>
+<main class="checkout-page">
+  <div class="page-container">
+    @if (orderPlaced) {
+      <div class="order-success">
+        <h2>Order placed successfully!</h2>
+        <p>Thank you, {{ shippingInfo.fullName }}! Your order confirmation is on its way.</p>
+        <a routerLink="/home" class="btn btn-primary">Back to Home</a>
+      </div>
+    } @else {
+      <form class="checkout-grid" #checkoutForm="ngForm" (ngSubmit)="placeOrder(checkoutForm)">
+        <section class="shipping-section">
+          <h2 class="section-title">Shipping Information</h2>
+
+          <label class="field">
+            <span class="field-label">Full Name</span>
+            <input
+              type="text"
+              name="fullName"
+              required
+              minlength="3"
+              placeholder="Full Name"
+              [(ngModel)]="shippingInfo.fullName"
+              #fullName="ngModel"
+            />
+            @if (fullName.invalid && fullName.touched) {
+              <span class="field-error">Please enter your full name.</span>
+            }
+          </label>
+
+          <label class="field">
+            <span class="field-label">Address</span>
+            <input
+              type="text"
+              name="address"
+              required
+              placeholder="Address"
+              [(ngModel)]="shippingInfo.address"
+              #address="ngModel"
+            />
+            @if (address.invalid && address.touched) {
+              <span class="field-error">Address is required.</span>
+            }
+          </label>
+
+          <label class="field">
+            <span class="field-label">City</span>
+            <input
+              type="text"
+              name="city"
+              required
+              placeholder="City"
+              [(ngModel)]="shippingInfo.city"
+              #city="ngModel"
+            />
+            @if (city.invalid && city.touched) {
+              <span class="field-error">City is required.</span>
+            }
+          </label>
+
+          <label class="field">
+            <span class="field-label">Phone Number</span>
+            <input
+              type="tel"
+              name="phone"
+              required
+              pattern="^[0-9+ ]{8,15}$"
+              placeholder="Phone Number"
+              [(ngModel)]="shippingInfo.phone"
+              #phone="ngModel"
+            />
+            @if (phone.invalid && phone.touched) {
+              <span class="field-error">Please enter a valid phone number.</span>
+            }
+          </label>
+
+          <h2 class="section-title">Payment Method</h2>
+          <div class="payment-options">
+            <label class="radio-option">
+              <input type="radio" name="paymentMethod" value="card" [(ngModel)]="paymentMethod" />
+              Credit / Debit Card
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="paymentMethod" value="cod" [(ngModel)]="paymentMethod" />
+              Cash on Delivery
+            </label>
+          </div>
+
+          @if (paymentMethod === 'card') {
+            <div class="card-fields">
+              <label class="field">
+                <span class="field-label">Card Number</span>
+                <input
+                  type="text"
+                  name="cardNumber"
+                  maxlength="19"
+                  placeholder="1234 5678 9012 3456"
+                  [(ngModel)]="cardNumber"
+                />
+              </label>
+              <label class="field">
+                <span class="field-label">Expiry</span>
+                <input
+                  type="text"
+                  name="cardExpiry"
+                  maxlength="5"
+                  placeholder="MM/YY"
+                  [(ngModel)]="cardExpiry"
+                />
+              </label>
+            </div>
+          } @else {
+            <p class="cod-note">You'll pay in cash when your order arrives.</p>
+          }
+
+          <h2 class="section-title">Delivery Method</h2>
+          <select class="field-select" name="deliveryMethod" [(ngModel)]="deliveryMethod">
+            <option value="standard">Standard (3–5 days)</option>
+            <option value="express">Express (1–2 days)</option>
+          </select>
+
+          @switch (deliveryMethod) {
+            @case ('standard') {
+              <p class="delivery-note">Your order will arrive within 3–5 business days.</p>
+            }
+            @case ('express') {
+              <p class="delivery-note">Your order will arrive within 1–2 business days (extra charges apply).</p>
+            }
+            @default {
+              <p class="delivery-note">Please choose a delivery method.</p>
+            }
+          }
+        </section>
+
+        <aside class="order-summary">
+          <h2 class="section-title">Order Summary</h2>
+
+          <ul class="summary-list">
+            @for (item of items(); track item.id) {
+              <li class="summary-item">
+                <img [src]="item.cover" [alt]="item.title" />
+                <span class="summary-title">{{ item.title }}</span>
+                <span class="summary-price">{{ item.price * item.qty | currency }}</span>
+              </li>
+            } @empty {
+              <li class="summary-empty">Your cart is empty.</li>
+            }
+          </ul>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>{{ subtotal() | currency }}</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>{{ shipping() === 0 ? 'Free' : (shipping() | currency) }}</span>
+          </div>
+          <div class="summary-row total-row">
+            <span>Total</span>
+            <span>{{ total() | currency }}</span>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary place-order-btn"
+            [disabled]="checkoutForm.invalid || isPlacingOrder"
+          >
+            {{ isPlacingOrder ? 'Placing order...' : 'Place Order' }}
+          </button>
+        </aside>
+      </form>
+    }
+  </div>
+</main>
