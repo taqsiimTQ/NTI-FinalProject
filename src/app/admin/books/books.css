@@ -3,7 +3,6 @@
 }
 
 
-/* HEADER */
 
 .page-label {
   display: block;
@@ -23,7 +22,6 @@
 }
 
 
-/* BOOK COUNT */
 
 .book-count {
   padding: 8px 13px;
@@ -38,8 +36,6 @@
   font-weight: 700;
 }
 
-
-/* TABLE */
 
 .books-table-container {
   border: 1px solid #e3e7f0;
@@ -69,7 +65,6 @@
 }
 
 
-/* BOOK */
 
 .book-cover {
   width: 48px;
@@ -109,8 +104,6 @@
 }
 
 
-/* CATEGORY */
-
 .category {
   display: inline-block;
 
@@ -128,7 +121,6 @@
 }
 
 
-/* PRICE */
 
 .price {
   color: #172554;
@@ -150,8 +142,6 @@
   font-size: 15px;
 }
 
-
-/* EMPTY */
 
 .empty-state {
   padding: 70px 20px;

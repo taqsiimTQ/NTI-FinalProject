@@ -1,6 +1,5 @@
 <div class="orders-page">
 
-  <!-- HEADER -->
   <div class="d-flex justify-content-between align-items-center mb-4 page-header">
 
     <div>
@@ -20,7 +19,6 @@
   </div>
 
 
-  <!-- SUMMARY -->
   <div class="row g-3 mb-4">
 
     <div class="col-12 col-md-6 col-xl-3">
@@ -69,7 +67,6 @@
   </div>
 
 
-  <!-- TABLE -->
   <div class="card orders-table-container">
 
     @if (loading) {
@@ -104,7 +101,6 @@
 
               <tr>
 
-                <!-- ORDER -->
                 <td>
                   <strong class="order-id">
                     #{{ order.id }}
@@ -116,7 +112,6 @@
                 </td>
 
 
-                <!-- DATE -->
                 <td>
                   <span class="order-date">
                     {{ order.date | date: 'mediumDate' }}
@@ -124,7 +119,6 @@
                 </td>
 
 
-                <!-- ITEMS -->
                 <td>
                   <span class="items-count">
                     {{ getItemsCount(order) }}
@@ -134,7 +128,6 @@
                 </td>
 
 
-                <!-- TOTAL -->
                 <td>
                   <strong class="order-total">
                     {{ order.total | currency: 'EGP' : 'symbol' : '1.2-2' }}
@@ -142,7 +135,7 @@
                 </td>
 
 
-                <!-- STATUS -->
+                
                 <td>
                   <span
                     class="status"

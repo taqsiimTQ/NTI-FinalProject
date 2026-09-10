@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Book } from '../models/book.model';
 
 @Injectable({
@@ -17,17 +17,8 @@ export class BookService {
   }
 
   getBookById(id: number): Observable<Book | undefined> {
-    return new Observable(observer => {
-
-      this.getBooks().subscribe(books => {
-
-        const book = books.find(b => b.id === id);
-
-        observer.next(book);
-        observer.complete();
-
-      });
-
-    });
-  }
+  return this.getBooks().pipe(
+    map(books => books.find(book => book.id === id))
+  );
+}
 }

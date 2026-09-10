@@ -23,7 +23,6 @@ export class Books implements OnInit {
       next: (books) => {
         this.books = books;
 
-        // Force the template to update
         this.cdr.detectChanges();
       },
       error: (error) => {

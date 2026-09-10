@@ -3,7 +3,7 @@
 }
 
 
-/* HEADER */
+
 
 .page-header {
   min-height: 60px;
@@ -32,7 +32,7 @@
 }
 
 
-/* SUMMARY */
+
 
 .summary-card {
   border: 1px solid #e3e7f0;
@@ -47,7 +47,7 @@
 }
 
 
-/* TABLE */
+
 
 .orders-table-container {
   border: 1px solid #e3e7f0;
@@ -73,7 +73,7 @@
 }
 
 
-/* ORDER */
+
 
 .order-id {
   display: block;
@@ -89,7 +89,7 @@
 }
 
 
-/* DATE */
+
 
 .order-date {
   color: #64748b;
@@ -97,7 +97,7 @@
 }
 
 
-/* ITEMS */
+
 
 .items-count {
   color: #1f2937;
@@ -105,7 +105,7 @@
 }
 
 
-/* TOTAL */
+
 
 .order-total {
   color: #172554;
@@ -113,7 +113,7 @@
 }
 
 
-/* STATUS */
+
 
 .status {
   display: inline-block;
@@ -144,7 +144,7 @@
 }
 
 
-/* EMPTY */
+
 
 .empty-state {
   padding: 60px 20px;

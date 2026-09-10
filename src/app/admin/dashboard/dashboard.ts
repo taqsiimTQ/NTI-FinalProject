@@ -17,40 +17,35 @@ import { UserService } from '../../core/services/user.service';
 })
 export class Dashboard implements OnInit {
 
-  // Data
   books: Book[] = [];
   orders: Order[] = [];
 
-  // Statistics
   totalBooks = 0;
   totalUsers = 0;
   totalOrders = 0;
   totalSales = 0;
 
-  // Sales chart
   salesByMonth: {
     month: string;
     sales: number;
   }[] = [];
 
-  // Best selling books
   topBooks: {
     title: string;
     quantity: number;
   }[] = [];
 
-  // Highest sales value
   maxSales = 0;
 
-  // Highest book sales
-  
+
+
 
   constructor(
     private bookService: BookService,
     private orderService: OrderService,
     private userService: UserService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadBooks();
@@ -58,7 +53,6 @@ export class Dashboard implements OnInit {
     this.loadOrders();
   }
 
-  // Get books
   loadBooks(): void {
     this.bookService.getBooks().subscribe({
       next: (books) => {
@@ -78,7 +72,6 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Get users
   loadUsers(): void {
     this.userService.getUsers().subscribe({
       next: (users) => {
@@ -95,7 +88,6 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Get orders
   loadOrders(): void {
     this.orderService.getOrders().subscribe({
       next: (orders) => {
@@ -118,7 +110,6 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Calculate total sales
   calculateTotalSales(): void {
     this.totalSales = 0;
 
@@ -127,7 +118,6 @@ export class Dashboard implements OnInit {
     }
   }
 
-  // Calculate sales for each month
   calculateMonthlySales(): void {
     const monthlySales: { [month: string]: number } = {};
 
@@ -158,7 +148,6 @@ export class Dashboard implements OnInit {
       });
     }
 
-    // Find the highest monthly sale
     this.maxSales = 0;
 
     for (const item of this.salesByMonth) {
@@ -168,11 +157,9 @@ export class Dashboard implements OnInit {
     }
   }
 
-  // Find best selling books
   calculateTopBooks(): void {
     const bookSales: { [id: number]: number } = {};
 
-    // Count how many times each book was sold
     for (const order of this.orders) {
       for (const item of order.items) {
         if (bookSales[item.bookId]) {
@@ -185,7 +172,6 @@ export class Dashboard implements OnInit {
 
     this.topBooks = [];
 
-    // Convert book IDs into book names
     for (const id in bookSales) {
       const book = this.books.find(
         b => b.id === Number(id)
@@ -200,18 +186,15 @@ export class Dashboard implements OnInit {
       });
     }
 
-    // Sort from highest to lowest
     this.topBooks.sort(
       (a, b) => b.quantity - a.quantity
     );
 
-    // Show only the top 5
     this.topBooks = this.topBooks.slice(0, 5);
 
-    
+
   }
 
-  // Calculate bar height
   getBarHeight(sales: number): number {
     if (this.maxSales === 0) {
       return 0;

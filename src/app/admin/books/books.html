@@ -1,6 +1,6 @@
 <div class="books-page">
 
-  <!-- HEADER -->
+
   <div class="d-flex justify-content-between align-items-end mb-4 page-header">
 
     <div>
@@ -19,133 +19,119 @@
 
   </div>
 
-
-  <!-- TABLE -->
   <div class="card books-table-container">
 
     @if (books.length > 0) {
 
-      <div class="table-responsive">
+    <div class="table-responsive">
 
-        <table class="table table-hover align-middle mb-0">
+      <table class="table table-hover align-middle mb-0">
 
-          <thead>
-            <tr>
-              <th>Book</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Pages</th>
-              <th>Rating</th>
-              <th>Reviews</th>
-            </tr>
-          </thead>
-
-
-          <tbody>
-
-            @for (book of books; track book.id) {
-
-              <tr>
-
-                <!-- BOOK -->
-                <td>
-
-                  <div class="d-flex align-items-center gap-3">
-
-                    <div class="book-cover">
-                      <img
-                        [src]="book.image"
-                        [alt]="book.title"
-                      />
-                    </div>
-
-                    <div>
-                      <h3 class="book-title">
-                        {{ book.title }}
-                      </h3>
-
-                      <p class="book-author">
-                        {{ book.author }}
-                      </p>
-                    </div>
-
-                  </div>
-
-                </td>
+        <thead>
+          <tr>
+            <th>Book</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Pages</th>
+            <th>Rating</th>
+            <th>Reviews</th>
+          </tr>
+        </thead>
 
 
-                <!-- CATEGORY -->
-                <td>
-                  <span class="category">
-                    {{ book.category }}
-                  </span>
-                </td>
+        <tbody>
+
+          @for (book of books; track book.id) {
+
+          <tr>
+
+            <td>
+
+              <div class="d-flex align-items-center gap-3">
+
+                <div class="book-cover">
+                  <img [src]="book.image" [alt]="book.title" />
+                </div>
+
+                <div>
+                  <h3 class="book-title">
+                    {{ book.title }}
+                  </h3>
+
+                  <p class="book-author">
+                    {{ book.author }}
+                  </p>
+                </div>
+
+              </div>
+
+            </td>
+
+            <td>
+              <span class="category">
+                {{ book.category }}
+              </span>
+            </td>
+
+            <td>
+              <span class="price">
+                {{ book.price | currency: 'EGP' : 'symbol' : '1.2-2' }}
+              </span>
+            </td>
 
 
-                <!-- PRICE -->
-                <td>
-                  <span class="price">
-                    {{ book.price | currency: 'EGP' : 'symbol' : '1.2-2' }}
-                  </span>
-                </td>
+            <td>
+              <span class="pages">
+                {{ book.pages }}
+              </span>
+            </td>
+
+            <td>
+
+              <div class="rating">
+
+                <span class="stars">★</span>
+
+                <span>
+                  {{ book.rating }}
+                </span>
+
+              </div>
+
+            </td>
 
 
-                <!-- PAGES -->
-                <td>
-                  <span class="pages">
-                    {{ book.pages }}
-                  </span>
-                </td>
+            <td>
+              <span class="reviews">
+                {{ book.reviews }}
+              </span>
+            </td>
 
+          </tr>
 
-                <!-- RATING -->
-                <td>
+          }
 
-                  <div class="rating">
+        </tbody>
 
-                    <span class="stars">★</span>
+      </table>
 
-                    <span>
-                      {{ book.rating }}
-                    </span>
-
-                  </div>
-
-                </td>
-
-
-                <!-- REVIEWS -->
-                <td>
-                  <span class="reviews">
-                    {{ book.reviews }}
-                  </span>
-                </td>
-
-              </tr>
-
-            }
-
-          </tbody>
-
-        </table>
-
-      </div>
+    </div>
 
 
     } @else {
 
-      <!-- EMPTY STATE -->
-      <div class="empty-state">
 
-        <div class="empty-icon">📚</div>
+    <div class="empty-state">
 
-        <h3>No Books Found</h3>
+      <div class="empty-icon">📚</div>
 
-        <p>
-          There are currently no books in your collection.
-        </p>
+      <h3>No Books Found</h3>
 
-      </div>
+      <p>
+        There are currently no books in your collection.
+      </p>
+
+    </div>
 
     }
 
