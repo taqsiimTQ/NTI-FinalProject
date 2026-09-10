@@ -5,6 +5,7 @@ import { Book } from '../../../core/models/book.model';
 import { BookService } from '../../../core/services/book.service';
 import { WishlistService } from '../../../services/wishlist.service';
 import { Reviews } from '../reviews/reviews';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-book-details',
@@ -25,11 +26,13 @@ export class BookDetails implements OnInit {
   showReviews = false;
   wishlistAdded = false;
 
+  
   constructor(
-    private route: ActivatedRoute,
-    private bookService: BookService,
-    private wishlistService: WishlistService,
-    private cdr: ChangeDetectorRef
+  private route: ActivatedRoute,
+  private bookService: BookService,
+  private wishlistService: WishlistService,
+  private cartService: CartService,
+  private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -98,4 +101,24 @@ export class BookDetails implements OnInit {
   showBookReviews(): void {
     this.showReviews = true;
   }
+
+  //add to cart button
+  addToCart(): void {
+  if (!this.book || this.count <= 0) {
+    return;
+  }
+
+  this.cartService.addToCart(
+    this.book.id,
+    this.count
+  );
+
+  console.log(
+    `Added ${this.count} × "${this.book.title}" to cart`
+  );
+
+  this.count = 0;
+
+  this.cdr.detectChanges();
+}
 }

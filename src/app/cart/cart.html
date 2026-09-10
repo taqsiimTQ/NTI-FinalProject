@@ -1,67 +1,34 @@
 <main class="cart-page">
   <div class="page-container">
-    <h1 class="page-title">Your Cart</h1>
-    @if (items().length === 0) {
-      <div class="empty-cart">
-        <h2>Your cart is empty</h2>
-        <p class="empty-text">You haven't added any books yet — let's explore the library!</p>
-        <a routerLink="/home" class="btn btn-primary">Browse Books</a>
+    <h1 class="page-title">Your Cart</h1> @if (items().length === 0) { <div class="empty-cart">
+      <h2>Your cart is empty</h2>
+      <p class="empty-text"> You haven't added any books yet — let's explore the library! </p> <a routerLink="/home"
+        class="btn btn-primary">Browse Books</a>
+    </div> } @else { <div class="cart-card">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody> @for (item of items(); track item.bookId) { <tr app-cart-item-row [item]="item"
+            (increase)="onIncrease(item)" (decrease)="onDecrease(item)" (remove)="onRemove(item)"
+            (qtyChange)="onQtyChange(item, $event)"></tr> } </tbody>
+      </table>
+      <div class="cart-summary">
+        <div class="summary-row"> <span>Subtotal</span> <span>{{ subtotal() | currency }}</span> </div>
+        <div class="summary-row"> <span>Shipping</span> <span> {{ shipping() === 0 ? 'Free' : (shipping() | currency) }}
+          </span> </div> @if (subtotal() < freeShippingThreshold) { <p class="free-shipping-hint"> Add {{
+          freeShippingThreshold - subtotal() | currency }} more to get free shipping </p> } @else { <p
+            class="free-shipping-hint success"> Congrats! You've unlocked free shipping </p> } <div
+            class="summary-row total-row"> <span>Total</span> <span>{{ total() | currency }}</span> </div>
       </div>
-    } @else {
-      <div class="cart-card">
-        <table class="cart-table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (item of items(); track item.id) {
-              <tr
-                app-cart-item-row
-                [item]="item"
-                (increase)="onIncrease(item)"
-                (decrease)="onDecrease(item)"
-                (remove)="onRemove(item)"
-                (qtyChange)="onQtyChange(item, $event)"
-              ></tr>
-            }
-          </tbody>
-        </table>
-
-        <div class="cart-summary">
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span>{{ subtotal() | currency }}</span>
-          </div>
-          <div class="summary-row">
-            <span>Shipping</span>
-            <span>{{ shipping() === 0 ? 'Free' : (shipping() | currency) }}</span>
-          </div>
-
-          @if (subtotal() < freeShippingThreshold) {
-            <p class="free-shipping-hint">
-              Add {{ freeShippingThreshold - subtotal() | currency }} more to get free shipping
-            </p>
-          } @else {
-            <p class="free-shipping-hint success">Congrats! You've unlocked free shipping</p>
-          }
-
-          <div class="summary-row total-row">
-            <span>Total</span>
-            <span>{{ total() | currency }}</span>
-          </div>
-        </div>
-
-        <div class="cart-actions">
-          <a routerLink="/home" class="btn btn-outline">Continue Shopping</a>
-          <a routerLink="/checkout" class="btn btn-primary">Proceed to Checkout</a>
-        </div>
-      </div>
-    }
+      <div class="cart-actions"> <a routerLink="/home" class="btn btn-outline"> Continue Shopping </a> <a
+          routerLink="/checkout" class="btn btn-primary"> Proceed to Checkout </a> </div>
+    </div> }
   </div>
 </main>

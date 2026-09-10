@@ -1,0 +1,125 @@
+/* Note: this component now IS the <tr> itself (selector: 'tr[app-cart-item-row]'),
+   so any style meant for the host element must use :host — a plain class
+   selector would not apply to it under Angular's view encapsulation. */
+:host {
+  display: table-row;
+  border-bottom: 1px solid var(--nile-border);
+  transition: background-color 0.2s ease;
+}
+
+:host(:hover) {
+  background-color: var(--nile-cream-alt);
+}
+
+td {
+  padding: 14px 10px;
+  vertical-align: middle;
+}
+
+.item-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+}
+
+.cover-thumb {
+  width: 48px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.item-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--nile-navy);
+}
+
+.item-author {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: var(--nile-muted);
+}
+
+.price-cell,
+.total-cell {
+  font-weight: 600;
+  color: var(--nile-navy);
+  white-space: nowrap;
+}
+
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--nile-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.step-btn {
+  border: none;
+  background: var(--nile-cream-alt);
+  color: var(--nile-navy);
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.step-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.step-btn:hover:not(:disabled) {
+  background: var(--nile-gold);
+  color: #fff;
+}
+
+.qty-input {
+  width: 40px;
+  border: none;
+  text-align: center;
+  font-size: 0.9rem;
+  -moz-appearance: textfield;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.remove-btn {
+  border: none;
+  background: none;
+  color: #b3441f;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.remove-btn:hover {
+  opacity: 1;
+}
+
+:host(.low-qty) .step-btn:first-child {
+  opacity: 0.35;
+}
+
+@media (max-width: 640px) {
+  td {
+    padding: 10px 6px;
+    font-size: 0.85rem;
+  }
+  .item-cell {
+    min-width: 160px;
+  }
+}

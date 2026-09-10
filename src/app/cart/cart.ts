@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CartService } from '../services/cart.service';
-import { CartItem } from '../models/book.model';
+import { CartService } from '../core/services/cart.service';
+import { CartItemView } from '../core/models/cart.model';
 import { CartItemRow } from '../cart-item-row/cart-item-row';
 
 @Component({
@@ -27,26 +27,30 @@ export class Cart implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('[Cart] ngOnInit → cart page loaded, data read from CartService');
+    console.log(
+      '[Cart] ngOnInit → cart page loaded, data read from CartService',
+    );
   }
 
   ngOnDestroy(): void {
-    console.log('[Cart] ngOnDestroy → user left the cart page');
+    console.log(
+      '[Cart] ngOnDestroy → user left the cart page',
+    );
   }
 
-  onIncrease(item: CartItem): void {
-    this.cartService.increase(item.id);
+  onIncrease(item: CartItemView): void {
+    this.cartService.increase(item.bookId);
   }
 
-  onDecrease(item: CartItem): void {
-    this.cartService.decrease(item.id);
+  onDecrease(item: CartItemView): void {
+    this.cartService.decrease(item.bookId);
   }
 
-  onRemove(item: CartItem): void {
-    this.cartService.remove(item.id);
+  onRemove(item: CartItemView): void {
+    this.cartService.remove(item.bookId);
   }
 
-  onQtyChange(item: CartItem, qty: number): void {
-    this.cartService.updateQty(item.id, qty);
+  onQtyChange(item: CartItemView, qty: number): void {
+    this.cartService.updateQty(item.bookId, qty);
   }
 }

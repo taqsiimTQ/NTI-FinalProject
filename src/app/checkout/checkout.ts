@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../core/services/cart.service';
 
 interface ShippingInfo {
   fullName: string;
